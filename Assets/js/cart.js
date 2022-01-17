@@ -51,9 +51,7 @@ function updateCart(position) {
     alert(error)
   }
   
-  
 }
-
 
 // REMOVE BOOK
 function removeCart(position) {

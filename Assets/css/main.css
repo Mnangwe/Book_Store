@@ -1,40 +1,77 @@
 @import url(https://fonts.googleapis.com/css?family=Oleo+Script);
 #products {
-    flex-wrap: wrap;
-  }
-  
-  #products img {
-    height: 300px;
-    object-fit: cover;
-  }
-  
-  .card {
-    width: calc(98% / 3);
-    margin: 4px;
-    border: 0.25px solid rgb(221, 216, 216);
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  flex-wrap: wrap;
+  gap: 20px;
 }
-  /* .card:hover {
-      transform: scale(1.05);
-  } */
-  
 
-  .cart .addToCart{
-    background-position: 10px 12px; /* Position the search icon */
-    background-repeat: no-repeat; /* Do not repeat the icon image */
-    width: 70%;
-    font-size: 16px; /* Increase font-size */
-    padding: 12px 20px 12px 40px; /* Add some padding */
-    border: 1px solid #ddd; /* Add a grey border */
-    margin-bottom: 12px; /* Add some space below the input */
+img {
+  height: 200px !important;
+  object-fit: cover;
+}
+
+.card {
+  width: calc((100% / 4) - 15px);
+  min-width: 300px;
+  order: 0.25px solid rgb(221, 216, 216);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.card-title {
+  text-transform: capitalize;
+}
+
+marquee {
+  text-transform: capitalize;
+}
+
+button p{
+  padding: 0;
+  margin: 0;
+}
+
+
+input {
+  margin-bottom: 2px !important;
+}
+
+.cart #addToCart{
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 70%;
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 1px; /* Add some space below the input */
+}
+
+.order {
+  width: 100%;
+  margin: 10px auto;
+}
+h4 {
+  font-family: 'Oleo Script', cursive;
+  color: orangered;
+}
+
+@media screen and (max-width: 1400px) {
+  .fas {
+    display: inline;
   }
-  .order {
-    width: 100%;
-    margin: 10px auto;
+  .write {
+    display: none;
   }
-  h4 {
-    font-family: 'Oleo Script', cursive;
-    color: orangered;
+  input {
+    width: 40%;
   }
+}
+
+@media screen and (min-width: 1401px) {
+  .fas {
+    display: none;
+  }
+  .write{
+    display: flex;
+  }
+}

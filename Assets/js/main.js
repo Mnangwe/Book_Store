@@ -103,7 +103,15 @@ let books = JSON.parse(localStorage.getItem("products"))
         author: "Tolkien, J.R.",
         year: 1937,
         edition: "Penguin",
-        price: 404.99,
+        price: 741.00,
+      },
+      {
+        image: "./Assets/images/GOT.jpg",
+        title: "A Game of Thrones",
+        author: "George R. R. Martin",
+        year: 1996,
+        edition: "Penguin",
+        price: 879.00,
       },
     ];
 
@@ -114,27 +122,28 @@ let cart = JSON.parse(localStorage.getItem("cart"))
 // READ BOOKS
 function readBooks(items) {
   document.querySelector("#products").innerHTML = "";
-  items.forEach((product, position) => {
+  items.forEach((book, position) => {
     document.querySelector("#products").innerHTML += `
         
         <div class="card">
-          <Image src="${product.image}" class="card-Image-top" alt="${product.title}">
+          <Image src="${book.image}" class="card-Image-top" alt="${book.title}">
           <div class="card-body">
-            <h4 class="card-title">${product.title}</h4>
-            <p><strong> ${product.title} by ${product.author} </strong>- ${product.year} </p>
-            <p class="card-text">R<strong> ${parseInt(product.price)}</strong></p>
-            <div d-flex>
+            <h4 class="card-title">${book.title}</h4>
+            <p><strong> ${book.title} </strong></p>
+            <p> by ${book.author} - ${book.year} </p>
+            <p class="card-text">R<strong> ${parseInt(book.price)}</strong></p>
+            <div d-flex-nowrap>
             <input type="number" value=1 class="cart" min=1 id="addToCart${position}">
-            <button type="button" class="btn btn-secondary addToCart"  onclick="addToCart( ${position} )">
-              Add to Cart
+            <button type="button" class="btn btn-secondary addToCart"  onclick="addToCart( ${position} )"><i class='fas fa-cart-plus'></i>
+            <p class="write">Add to Cart</p>
             </button>
-            </div>
-            <div>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editBook${position}" >
-              Edit
+            
+          
+            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#editBook${position}" ><i class='fas fa-edit'></i>
+             <p class="write"> Edit</p>
             </button>
-            <button type="button" class="btn btn-danger" onclick="deleteBook(${position})" >
-              Delete
+            <button type="button" class="btn btn-dark" onclick="deleteBook(${position})" ><i class='fas fa-trash-alt'></i>
+            <p class="write">Delete</p>
             </button>
             </div>
             
@@ -150,7 +159,7 @@ function readBooks(items) {
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">
-                    Edit ${product.title}
+                    Edit ${book.title}
                   </h5>
                   <button
                     type="button"
@@ -167,7 +176,7 @@ function readBooks(items) {
                       type="text"
                       name="editTitle${position}"
                       id="editTitle${position}"
-                      value="${product.title}"
+                      value="${book.title}"
                     />
                   </div>
                   <div class="mb-3">
@@ -177,7 +186,7 @@ function readBooks(items) {
                       type="text"
                       name="editAuthor${position}"
                       id="editAuthor${position}"
-                      value="${product.title}"
+                      value="${book.title}"
                     />
                   </div>
                   <div class="mb-3">
@@ -201,7 +210,7 @@ function readBooks(items) {
                       type="text"
                       name="editYear${position}"
                       id="editYear${position}"
-                      value="${product.year}"
+                      value="${book.year}"
                     />
                   </div>
                   <div class="mb-3">
@@ -211,7 +220,7 @@ function readBooks(items) {
                       type="text"
                       name="editPrice${position}"
                       id="editPrice${position}"
-                      value="${parseInt(product.price)}"
+                      value="${parseInt(book.price)}"
                     />
                   </div>
                   <div class="mb-3">
@@ -221,7 +230,7 @@ function readBooks(items) {
                       type="text"
                       name="editImage${position}"
                       id="editImage${position}"
-                      value="${product.image}"
+                      value="${book.image}"
                     />
                   </div>
                 </div>
@@ -273,7 +282,7 @@ function createBook() {
       year,
       author,
     });
-    localStorage.setItem("products", JSON.stringify(books));
+    localStorage.setItem("Books", JSON.stringify(books));
     readBooks(books);
   } catch (err) {
     alert(err);
@@ -300,7 +309,7 @@ function updateBook(position) {
       year,
       author,
     };
-    localStorage.setItem("products", JSON.stringify(books));
+    localStorage.setItem("Books", JSON.stringify(books));
     readBooks(books);
   } catch (err) {
     alert(err);
@@ -315,7 +324,7 @@ function deleteBook(position) {
 
   if (confirmation) {
     books.splice(position, 1);
-    localStorage.setItem("products", JSON.stringify(books));
+    localStorage.setItem("Books", JSON.stringify(books));
     readBooks(books);
   }
 }
@@ -324,7 +333,57 @@ function deleteBook(position) {
 function addToCart(position) {
   let quantity = document.querySelector(`#addToCart${position}`).value;
   cart.push({ quantity, ...books[position] });
-  // cart.push({...products[position]});
+  // cart.push({...books[position]});
   localStorage.setItem("cart", JSON.stringify(cart));
   console.log(cart);
+}
+
+
+// SORT BY
+// SORT BY EDITION
+function sortEdition() {
+  let edition = document.querySelector("#sortEdition").value;
+
+  if (edition == "All") {
+    return readBooks(books);
+  }
+
+  let foundBooks = books.filter(book => {
+    return book.edition == edition;
+  });
+
+  readBooks(foundBooks);
+  console.log(foundBooks);
+}
+
+// SORT BY NAME
+
+function sortName() {
+  let direction = document.querySelector("#sortTitle").value;
+
+  let sortedBooks = books.sort((a, b) => {
+    if (a.title.toLowerCase() < b.title.toLowerCase()) {
+      return -1;
+    }
+    if (a.title.toLowerCase() > b.title.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  });
+  if (direction == "descending") sortedBooks.reverse();
+  console.log(sortedBooks);
+  readBooks(books);
+}
+
+// SORT BY PRICE
+
+function sortPrice() {
+  let direction = document.querySelector("#sortPrice").value;
+
+  let sortedBooks = books.sort((a, b) => a.price - b.price);
+
+  console.log(sortedBooks);
+
+  if (direction == "descending") sortedBooks.reverse();
+  readBooks(sortedBooks);
 }
