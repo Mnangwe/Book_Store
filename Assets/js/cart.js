@@ -12,7 +12,7 @@ function readBooks(items) {
           <div class="card-body">
             <h4 class="card-title">${product.title}</h4>
             <p><strong> ${product.title} by ${product.author} </strong>- </p>
-            <p class="card-text">$<strong> ${parseInt(product.price)}</strong></p>
+            <p class="card-text">R<strong> ${parseInt(product.price)}</strong></p>
             <div d-flex>
             <input type="number" value=${product.quantity} class="cart" min=1 id="addToCart${position}">
             </div>
