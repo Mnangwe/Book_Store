@@ -1,5 +1,5 @@
-let books = JSON.parse(localStorage.getItem("products"))
-  ? JSON.parse(localStorage.getItem("products"))
+let books = JSON.parse(localStorage.getItem("Books"))
+  ? JSON.parse(localStorage.getItem("Books"))
   : [
       {
         image: "./Assets/images/AbbeyN.jpg",
@@ -186,7 +186,7 @@ function readBooks(items) {
                       type="text"
                       name="editAuthor${position}"
                       id="editAuthor${position}"
-                      value="${book.title}"
+                      value="${book.author}"
                     />
                   </div>
                   <div class="mb-3">
