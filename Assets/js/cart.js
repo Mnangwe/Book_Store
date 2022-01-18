@@ -3,26 +3,28 @@ let cart = JSON.parse(localStorage.getItem("cart"))
 : [];
 
 function readBooks(items) {
-    document.querySelector("#products").innerHTML = "";
+    document.querySelector("#cart").innerHTML = "";
     items.forEach((product, position) => {
-      document.querySelector("#products").innerHTML += `
+      document.querySelector("#cart").innerHTML += `
         
-        <div class="card">
-          <Image src="${product.image}" class="card-Image-top" alt="${product.title}">
+        <div class="card main">
+          <img src="${product.image}" class="card-Image-top" alt="${product.title}">
+          
           <div class="card-body">
             <h4 class="card-title">${product.title}</h4>
-            <p><strong> ${product.title} by ${product.author} </strong>- </p>
+            <p><strong> ${product.title} by ${product.author} </strong>- ${product.year} </p>
             <p class="card-text">R<strong> ${parseInt(product.price)}</strong></p>
+            </div>
             <div d-flex>
             <input type="number" value=${product.quantity} class="cart" min=1 id="addToCart${position}">
             </div>
-
+          
             <div>
-            <button type="button" class="btn btn-primary" onclick="updateCart(${position})" >
-          Update
+            <button type="button" class="btn btn-primary" onclick="updateCart(${position})" ><i class='fas fa-edit'></i>
+          <p class="write">Update</p>
         </button>
-        <button type="button" class="btn btn-danger" onclick="removeCart(${position})" >
-          Remove
+        <button type="button" class="btn btn-danger" onclick="removeCart(${position})" ><i class='fas fa-trash-alt'></i>
+        <p class="write">Remove</p>
         </button>
       </div>
 
@@ -65,6 +67,11 @@ function removeCart(position) {
     readBooks(cart);
   }
   totalCost();
+}
+
+//REMOVE MULTIPLE 
+function removeMultiple(position) {
+
 }
 
 // Total Cost
